@@ -5,210 +5,255 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#003399">
-<meta name="description" content="Lynn's personal air fryer cooking guide, recipes, meal planner and nutrition tracker.">
+<meta name="description" content="Lynn's Airfryer: personal cooking guide, recipes, meal planner and nutrition tracker.">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <title>Lynn's Airfryer</title>
 <style>
-:root{--blue:#003399;--dark:#002568;--pale:#e8efff;--bg:#f3f5fa;--card:#fff;--ink:#202638;--muted:#697386;--line:#dfe5ef;--green:#28784b}
+:root{--blue:#003399;--dark:#002568;--pale:#e8efff;--bg:#f3f5fa;--ink:#202638;--muted:#697386;--line:#dfe5ef}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,sans-serif}
-header{background:linear-gradient(135deg,#002568,#0047bd);color:white;padding:24px 17px}
-.wrap,main{max-width:1050px;margin:auto}
-h1{font-size:clamp(27px,6vw,40px);margin:4px 0}
+header{background:linear-gradient(135deg,#002568,#0047bd);color:white;padding:22px 16px}
+header p{margin:5px 0;color:#e4ebff}
+h1{font-size:clamp(27px,6vw,38px);margin:5px 0}
 h2{font-size:20px;margin:0 0 12px}
-h3{font-size:17px;margin:9px 0}
-p{line-height:1.5}
-header p{margin-bottom:0;color:#e4ebff}
-.eyebrow{font-size:11px;letter-spacing:2px;color:#d8e5ff}
-main{padding:13px}
-button,input,select,textarea{font:inherit;border-radius:10px;padding:11px}
+h3{font-size:17px;margin:8px 0}
+main{max-width:1000px;margin:auto;padding:12px}
+button,input,select,textarea{font:inherit;border-radius:9px;padding:11px}
 button{border:0;background:var(--blue);color:white;cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #86aaff;outline-offset:2px}
-input,select,textarea{width:100%;min-width:0;background:white;color:var(--ink);border:1px solid #d5dce8}
+input,select,textarea{width:100%;border:1px solid #d5dce8;background:white;color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #86aaff}
 label{display:block;font-size:13px;color:var(--muted);margin:9px 0 5px}
-.tabs{display:flex;gap:7px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:2}
+.tabs{display:flex;gap:6px;overflow-x:auto;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:2}
 .tabs button{white-space:nowrap;background:#e2e9f8;color:var(--blue);padding:10px}
 .tabs button.active{background:var(--blue);color:white}
 .view{display:none}.view.active{display:block}
-.panel,.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{margin:0;min-width:0}
+.panel,.card{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
 .formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.row{display:flex;gap:9px;align-items:center}.row>*{flex:1;min-width:0}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.row,.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actions{margin-top:10px}
 .actions button{flex:1}
 .secondary{background:#e7edfa;color:var(--blue)}
 .danger{background:#923a43;color:white}
-.muted{color:var(--muted);font-size:13px;line-height:1.5}
-.small{font-size:11px}
-.emoji{font-size:30px}
-.badge{display:inline-block;background:#e9efff;color:#003399;padding:4px 7px;border-radius:7px;font-size:11px;margin:2px}
-.stats{display:flex;gap:7px;margin:10px 0}
-.stat{flex:1;min-width:0;background:#edf2fc;border-radius:9px;padding:9px}
-.stat strong{display:block;font-size:16px}.stat small{font-size:10px;color:var(--muted)}
-.item{display:flex;justify-content:space-between;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:11px 0}
+.muted{font-size:13px;color:var(--muted);line-height:1.5}
+.badge{display:inline-block;background:var(--pale);color:var(--blue);border-radius:6px;padding:4px 7px;font-size:11px;margin:2px}
+.emoji{font-size:29px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
 .item:last-child{border-bottom:0}
-.item button{padding:7px 9px}
+.item button{padding:7px}
+.item input[type=checkbox]{width:auto}
 .empty{text-align:center;color:var(--muted);padding:18px}
-.result{background:#eaf0ff;padding:13px;border-radius:12px;margin:10px 0}
-.big{font-size:28px;font-weight:800}
+.stats{display:flex;gap:7px;margin:10px 0}
+.stat{flex:1;background:#edf2fc;padding:9px;border-radius:8px;min-width:0}
+.stat strong{display:block;font-size:16px}
+.stat small{font-size:10px;color:var(--muted)}
+.big{font-size:27px;font-weight:800}
 .meter{height:9px;background:#dce4f2;border-radius:20px;overflow:hidden}
 .meter div{height:100%;background:#3774df;width:0}
-.checkline{display:flex;gap:9px;align-items:center;margin:8px 0}
-.checkline input{width:auto}.checkline label{margin:0;flex:1}
-.clock{text-align:center;font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;margin:12px}
-details{border:1px solid var(--line);border-radius:10px;padding:10px;margin:9px 0}
-summary{cursor:pointer;font-weight:650}
+.clock{text-align:center;font-size:45px;font-weight:800;font-variant-numeric:tabular-nums}
 a{color:var(--blue)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(min-width:720px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:420px){main{padding:9px}.grid{grid-template-columns:1fr}.panel,.card{padding:12px}.tabs button{padding:9px}}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+@media(max-width:420px){main{padding:8px}.panel,.card{padding:11px}.formgrid{gap:6px}}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-<div class="eyebrow">YOUR PERSONAL COOKING COMPANION</div>
-<h1>🔵 Lynn's Airfryer</h1>
-<p>Blue and white spirit. Good food. Simple cooking.</p>
-</div></header>
+<header>
+ <div style="max-width:1000px;margin:auto">
+  <div style="font-size:11px;letter-spacing:2px">YOUR PERSONAL COOKING COMPANION</div>
+  <h1>🔵 Lynn's Airfryer</h1>
+  <p>Everton-inspired blue and white. Good food. Simple cooking.</p>
+ </div>
+</header>
 <main>
-<nav class="tabs" aria-label="App sections">
-<button class="active" data-view="cook">🍟 Cooking</button>
-<button data-view="recipes">📖 Recipes</button>
-<button data-view="planner">📅 Planner</button>
-<button data-view="shopping">🛒 Shopping</button>
-<button data-view="tracker">🥗 Nutrition</button>
-<button data-view="myfoods">➕ My Foods</button>
-<button data-view="settings">⚙ Settings</button>
+<nav class="tabs">
+ <button class="active" data-view="cook">🍟 Cooking</button>
+ <button data-view="recipes">📖 Recipes</button>
+ <button data-view="planner">📅 Planner</button>
+ <button data-view="shopping">🛒 Shopping</button>
+ <button data-view="tracker">🥗 Nutrition</button>
+ <button data-view="myfoods">➕ My Foods</button>
+ <button data-view="settings">⚙ Settings</button>
 </nav>
 
 <section id="cook" class="view active">
-<div class="panel">
-<h2>🍟 Cooking guide</h2>
-<label for="search">Search foods</label><input id="search" placeholder="Try chicken, potatoes, salmon…">
-<div class="formgrid">
-<div><label for="category">Category</label><select id="category"><option>All</option><option>Meat</option><option>Fish</option><option>Vegetables</option><option>Frozen</option><option>Fruit</option><option>Other</option></select></div>
-<div><label for="diet">Diet filter</label><select id="diet"><option value="all">All foods</option><option value="vegan">Vegan</option><option value="vegetarian">Vegetarian</option><option value="glutenFree">Gluten-free ingredients</option><option value="dairyFree">Dairy-free ingredients</option><option value="highProtein">Higher protein</option><option value="favourites">Favourites only</option></select></div>
-</div>
-<p class="muted">Cooking times are starting estimates only. Size, quantity and appliance vary. Follow the appliance manual and food packaging. Dietary filters are not allergy guarantees.</p>
-</div>
-<div id="foodGrid" class="grid"></div>
+ <div class="panel">
+  <h2>🍟 Find food and cooking instructions</h2>
+  <label for="search">Search foods</label>
+  <div class="row">
+   <input id="search" placeholder="Chicken, chips, salmon..." aria-label="Search foods">
+   <button id="searchBtn" type="button">Search</button>
+  </div>
+  <div class="formgrid">
+   <div><label for="category">Category</label>
+    <select id="category">
+     <option>All</option><option>Meat</option><option>Fish</option>
+     <option>Vegetables</option><option>Frozen</option><option>Fruit</option><option>Other</option>
+    </select>
+   </div>
+   <div><label for="diet">Diet filter</label>
+    <select id="diet">
+     <option value="all">All foods</option><option value="vegan">Vegan</option>
+     <option value="vegetarian">Vegetarian</option><option value="glutenFree">Gluten-free ingredients</option>
+     <option value="dairyFree">Dairy-free ingredients</option>
+     <option value="highProtein">Higher protein</option><option value="favourites">Favourites</option>
+    </select>
+   </div>
+  </div>
+  <p id="searchStatus" class="muted" aria-live="polite">Showing all foods.</p>
+  <p class="muted">Times and temperatures are starting estimates. Follow packaging and appliance instructions. Dietary filters are not allergy guarantees.</p>
+ </div>
+ <div id="foodGrid" class="grid"></div>
 </section>
 
 <section id="recipes" class="view">
-<div class="panel"><h2>📖 Recipe book</h2>
-<p class="muted">Simple ideas for everyday cooking. Nutrition is approximate and varies with ingredients and portions.</p>
-<input id="recipeSearch" placeholder="Search recipes or ingredients">
-</div>
-<div id="recipeGrid" class="grid"></div>
-<div id="recipeDetail" class="panel" hidden></div>
+ <div class="panel"><h2>📖 Recipe book</h2>
+  <label for="recipeSearch">Search recipes</label>
+  <input id="recipeSearch" placeholder="Search recipe names or ingredients">
+ </div>
+ <div id="recipeGrid" class="grid"></div>
+ <div id="recipeDetail" class="panel" hidden></div>
 </section>
 
 <section id="planner" class="view">
-<div class="panel"><h2>📅 Meal planner</h2>
-<p class="muted">Planning a meal does not log it as eaten.</p>
-<div class="formgrid">
-<div><label for="planDate">Date</label><input id="planDate" type="date"></div>
-<div><label for="planMeal">Meal</label><select id="planMeal"><option>Breakfast</option><option>Lunch</option><option selected>Dinner</option><option>Snack</option></select></div>
-<div><label for="planRecipe">Recipe</label><select id="planRecipe"></select></div>
-<div><label for="planServings">Servings</label><input id="planServings" type="number" min="1" max="20" value="2"></div>
-</div>
-<button id="addPlan" style="width:100%;margin-top:12px">＋ Add planned meal</button>
-</div>
-<div class="panel"><h2 id="planHeading">Planned meals</h2><div id="planList"></div></div>
+ <div class="panel"><h2>📅 Meal planner</h2>
+  <div class="formgrid">
+   <div><label for="planDate">Date</label><input id="planDate" type="date"></div>
+   <div><label for="planMeal">Meal</label><select id="planMeal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
+   <div><label for="planRecipe">Recipe</label><select id="planRecipe"></select></div>
+   <div><label for="planServings">Servings</label><input id="planServings" type="number" min="1" max="20" value="1"></div>
+  </div>
+  <button id="addPlan" style="width:100%;margin-top:10px">Add planned meal</button>
+ </div>
+ <div class="panel"><h2>Planned meals</h2><div id="planList"></div></div>
 </section>
 
 <section id="shopping" class="view">
-<div class="panel"><h2>🛒 Shopping list</h2>
-<div class="formgrid"><div><label for="shopItem">Item</label><input id="shopItem" placeholder="e.g. broccoli"></div><div><label for="shopQty">Quantity / note</label><input id="shopQty" placeholder="e.g. 2 heads"></div></div>
-<button id="addShop" style="width:100%;margin-top:10px">＋ Add item</button>
-<div class="actions"><button id="generateShop">Generate from planned recipes</button><button id="clearChecked" class="secondary">Remove checked</button></div>
-</div>
-<div class="panel"><div class="row"><h2>Your list</h2><button id="copyShop" class="secondary">Copy list</button></div><div id="shopList"></div></div>
+ <div class="panel"><h2>🛒 Shopping list</h2>
+  <div class="formgrid">
+   <div><label for="shopItem">Item</label><input id="shopItem" placeholder="Potatoes"></div>
+   <div><label for="shopQty">Quantity</label><input id="shopQty" placeholder="500 g"></div>
+  </div>
+  <button id="addShop" style="width:100%;margin-top:10px">Add item</button>
+  <div class="actions"><button id="generateShop">Add planned ingredients</button><button id="clearChecked" class="secondary">Remove checked</button><button id="copyShop" class="secondary">Copy list</button></div>
+ </div>
+ <div class="panel"><h2>Your list</h2><div id="shopList"></div></div>
 </section>
 
 <section id="tracker" class="view">
-<div class="panel"><h2>🥗 Food diary</h2>
-<label for="trackDate">Diary date</label><input id="trackDate" type="date">
-<div class="result"><div class="muted">Calories logged</div><div id="dayTotal" class="big">0 kcal</div><div class="meter"><div id="meterFill"></div></div><p id="goalText" class="muted">No daily goal set.</p></div>
-<div class="formgrid"><div><label for="goal">Daily calorie goal (optional)</label><input id="goal" type="number" min="1" max="10000" placeholder="e.g. 2000"></div><div style="display:flex;align-items:end"><button id="saveGoal" style="width:100%">Save goal</button></div></div>
-<div class="stats"><div class="stat"><small>PROTEIN</small><strong id="dayProtein">0 g</strong></div><div class="stat"><small>CARBS</small><strong id="dayCarbs">0 g</strong></div><div class="stat"><small>FAT</small><strong id="dayFat">0 g</strong></div></div>
-</div>
-<div class="panel"><h2>Log food you ate</h2>
-<div class="formgrid"><div><label for="logFood">Food</label><select id="logFood"></select></div><div><label for="logGrams">Portion (g)</label><input id="logGrams" type="number" min="1" max="5000" value="150"></div><div><label for="logOil">Added oil (tsp)</label><input id="logOil" type="number" min="0" max="20" step=".5" value="0"></div><div><label for="logMeal">Meal</label><select id="logMeal"><option>Breakfast</option><option>Lunch</option><option selected>Dinner</option><option>Snack</option></select></div></div>
-<button id="logAdd" style="width:100%;margin-top:10px">＋ Log eaten food</button><div id="logList"></div>
-<button id="clearLog" class="danger">Clear this date's diary</button>
-</div>
+ <div class="panel"><h2>🥗 Food diary</h2>
+  <label for="trackDate">Diary date</label><input id="trackDate" type="date">
+  <div class="big" id="dayTotal">0 kcal</div>
+  <div class="meter"><div id="meterFill"></div></div>
+  <p id="goalText" class="muted">Optional daily calorie goal.</p>
+  <div class="formgrid">
+   <div><label for="goal">Daily calorie goal</label><input id="goal" type="number" min="1" max="10000" placeholder="e.g. 2000"></div>
+   <div style="display:flex;align-items:end"><button id="saveGoal" style="width:100%">Save goal</button></div>
+  </div>
+  <div class="stats">
+   <div class="stat"><small>PROTEIN</small><strong id="dayProtein">0 g</strong></div>
+   <div class="stat"><small>CARBS</small><strong id="dayCarbs">0 g</strong></div>
+   <div class="stat"><small>FAT</small><strong id="dayFat">0 g</strong></div>
+  </div>
+ </div>
+ <div class="panel"><h2>Log food eaten</h2>
+  <label for="logFood">Food</label><select id="logFood"></select>
+  <div class="formgrid">
+   <div><label for="logGrams">Portion in grams</label><input id="logGrams" type="number" min="1" max="5000" value="150"></div>
+   <div><label for="logOil">Added oil (teaspoons)</label><input id="logOil" type="number" min="0" max="20" step=".5" value="0"></div>
+   <div><label for="logMeal">Meal</label><select id="logMeal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
+  </div>
+  <button id="logAdd" style="width:100%;margin-top:10px">Log eaten food</button>
+  <div id="logList"></div>
+  <button id="clearLog" class="danger">Clear this date's diary</button>
+ </div>
 </section>
 
 <section id="myfoods" class="view">
-<div class="panel"><h2>➕ My Foods</h2>
-<p class="muted">Add foods you discover, enter nutrition from the packet or a trusted database, and keep personal cooking notes. Values you enter are not automatically verified.</p>
-<form id="foodForm">
-<input id="editId" type="hidden">
-<div class="formgrid">
-<div><label for="customName">Food name *</label><input id="customName" required maxlength="100" placeholder="e.g. Brand X potato bites"></div>
-<div><label for="customCat">Category</label><select id="customCat"><option>Other</option><option>Meat</option><option>Fish</option><option>Vegetables</option><option>Frozen</option><option>Fruit</option></select></div>
-<div><label for="customKcal">Calories per 100 g *</label><input id="customKcal" required type="number" min="0" max="1000" step=".1"></div>
-<div><label for="customProtein">Protein (g/100 g)</label><input id="customProtein" type="number" min="0" max="100" step=".1" value="0"></div>
-<div><label for="customCarbs">Carbohydrates (g/100 g)</label><input id="customCarbs" type="number" min="0" max="100" step=".1" value="0"></div>
-<div><label for="customFat">Fat (g/100 g)</label><input id="customFat" type="number" min="0" max="100" step=".1" value="0"></div>
-<div><label for="customTemp">Suggested temperature °C (optional)</label><input id="customTemp" type="number" min="60" max="240" placeholder="e.g. 180"></div>
-<div><label for="customMin">Starting minutes (optional)</label><input id="customMin" type="number" min="1" max="180" placeholder="e.g. 12"></div>
-<div><label for="customMax">Maximum minutes (optional)</label><input id="customMax" type="number" min="1" max="240" placeholder="e.g. 16"></div>
-<div><label for="customSource">Nutrition source</label><input id="customSource" maxlength="250" placeholder="e.g. packet label, CoFID entry"></div>
-</div>
-<label for="customTip">Cooking notes / preparation</label><textarea id="customTip" rows="2" maxlength="1000" placeholder="Your notes"></textarea>
-<div class="actions"><button type="submit" id="saveFood">Save food</button><button type="button" id="cancelFood" class="secondary">Cancel edit</button></div>
-</form>
-</div>
-<div class="panel"><h2>Your custom foods</h2><div id="customList"></div></div>
-<div class="panel"><h2>Import nutrition CSV</h2><p class="muted">CSV columns: name,kcal,protein,carbs,fat,source. Imported values are labelled as unverified until checked against their original source.</p><input id="csvFile" type="file" accept=".csv,text/csv"><button id="importCsv" style="margin-top:9px">Import CSV</button><p id="importMessage" class="muted" aria-live="polite"></p></div>
+ <div class="panel"><h2>➕ Add your own food</h2>
+  <p class="muted">Enter nutrition per 100 g from a food label or trusted database. User-entered values are not automatically verified.</p>
+  <form id="foodForm">
+   <input id="editId" type="hidden">
+   <label for="customName">Food name *</label><input id="customName" required maxlength="100">
+   <div class="formgrid">
+    <div><label for="customCat">Category</label><select id="customCat"><option>Other</option><option>Meat</option><option>Fish</option><option>Vegetables</option><option>Frozen</option><option>Fruit</option></select></div>
+    <div><label for="customKcal">Calories per 100 g *</label><input id="customKcal" type="number" min="0" max="1000" step=".1" required></div>
+    <div><label for="customProtein">Protein (g)</label><input id="customProtein" type="number" min="0" max="100" step=".1" value="0"></div>
+    <div><label for="customCarbs">Carbs (g)</label><input id="customCarbs" type="number" min="0" max="100" step=".1" value="0"></div>
+    <div><label for="customFat">Fat (g)</label><input id="customFat" type="number" min="0" max="100" step=".1" value="0"></div>
+    <div><label for="customTemp">Temperature °C</label><input id="customTemp" type="number" min="60" max="240"></div>
+    <div><label for="customMin">Minimum minutes</label><input id="customMin" type="number" min="1" max="180"></div>
+    <div><label for="customMax">Maximum minutes</label><input id="customMax" type="number" min="1" max="240"></div>
+   </div>
+   <label for="customSource">Nutrition source</label><input id="customSource" maxlength="250" placeholder="Food label or database entry">
+   <label for="customTip">Cooking notes</label><textarea id="customTip" rows="2" maxlength="1000"></textarea>
+   <div class="actions"><button id="saveFood">Save food</button><button id="cancelFood" class="secondary" type="button">Cancel edit</button></div>
+  </form>
+ </div>
+ <div class="panel"><h2>Your foods</h2><div id="customList"></div></div>
+ <div class="panel"><h2>Import foods from CSV</h2>
+  <p class="muted">CSV headers: name,kcal,protein,carbs,fat,source. Values are imported as unverified.</p>
+  <input id="csvFile" type="file" accept=".csv,text/csv">
+  <button id="importCsv" style="margin-top:9px">Import CSV</button><p id="importMessage" class="muted"></p>
+ </div>
 </section>
 
 <section id="settings" class="view">
-<div class="panel"><h2>⚙ Cooking preferences</h2>
-<label for="model">Air fryer type</label><select id="model"><option value="basket">Basket-style</option><option value="oven">Air fryer oven</option><option value="dual">Dual drawer</option><option value="compact">Compact</option><option value="manual">My own adjustment</option></select>
-<div class="formgrid"><div><label for="adjust">Time adjustment (%)</label><input id="adjust" type="number" min="-30" max="50" value="0"></div><div><label for="preheat">Preheat</label><select id="preheat"><option value="manual">Follow manual / recipe</option><option value="yes">If manufacturer recommends</option><option value="no">Only when required</option></select></div></div>
-<button id="saveSettings" style="margin-top:10px">Save preferences</button><p id="settingsMessage" class="muted"></p>
-</div>
-<div class="panel"><h2>💾 Backup and restore</h2><p class="muted">Backups include favourites, custom foods, plans, diary entries, shopping list and preferences. Keep your backup file somewhere safe. Data is stored locally in this browser and is not automatically synced.</p>
-<div class="actions"><button id="exportData">Export backup</button><button id="importBackup" class="secondary">Restore backup</button></div><input id="backupFile" type="file" accept=".json,application/json" hidden><p id="backupMessage" class="muted" aria-live="polite"></p>
-<button id="resetData" class="danger">Reset all app data</button>
-</div>
-<div class="panel"><h2>Food safety and nutrition</h2>
-<p class="muted">Built-in nutrition values and recipe totals are approximate. They are not a substitute for an authoritative matching food record or product label. Imported values are not independently verified by this app.</p>
-<p class="muted">Use manufacturer and packaging instructions first. Check the centre of food with a clean food thermometer when appropriate. UK guidance includes 70°C for 2 minutes or equivalent combinations. Take extra care with poultry, pork and minced-meat products.</p>
-<a href="https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid" target="_blank" rel="noopener">UK CoFID food composition dataset</a><br>
-<a href="https://www.food.gov.uk/safety-hygiene/cooking-your-food" target="_blank" rel="noopener">Food Standards Agency cooking guidance</a>
-</div>
+ <div class="panel"><h2>⚙ Cooking preferences</h2>
+  <label for="model">Air fryer type</label><select id="model"><option value="basket">Basket</option><option value="oven">Air fryer oven</option><option value="dual">Dual drawer</option><option value="compact">Compact</option><option value="manual">Manual adjustment</option></select>
+  <label for="adjust">Time adjustment (%)</label><input id="adjust" type="number" min="-30" max="50" value="0">
+  <label for="preheat">Preheat preference</label><select id="preheat"><option value="manual">Follow appliance manual</option><option value="yes">If recommended</option><option value="no">Only when required</option></select>
+  <button id="saveSettings" style="margin-top:10px">Save preferences</button><p id="settingsMessage" class="muted"></p>
+ </div>
+ <div class="panel"><h2>💾 Backup and restore</h2>
+  <p class="muted">Your data is stored in this browser on this device. Export a backup before changing devices or clearing browser data.</p>
+  <div class="actions"><button id="exportData">Download backup</button><button id="importBackup" class="secondary">Restore backup</button></div>
+  <input id="backupFile" type="file" accept=".json,application/json" hidden>
+  <p id="backupMessage" class="muted"></p>
+  <button id="resetData" class="danger">Reset all app data</button>
+ </div>
+ <div class="panel"><h2>Food safety and nutrition</h2>
+  <p class="muted">Nutrition values are estimates, not a verified medical or dietary database. Check the food identity, portion, cooking state and source before relying on a figure. Check allergens on product packaging.</p>
+  <p class="muted">Follow manufacturer and packaging instructions. Use a food thermometer where appropriate. UK food safety guidance includes 70°C for 2 minutes or equivalent combinations.</p>
+  <a href="https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid" target="_blank" rel="noopener">UK CoFID nutrition dataset</a><br>
+  <a href="https://www.food.gov.uk/safety-hygiene/cooking-your-food" target="_blank" rel="noopener">Food Standards Agency cooking guidance</a>
+ </div>
 </section>
 
-<section class="panel"><h2>⏱ Quick cooking timer</h2>
-<div class="formgrid"><div><label for="timerMin">Minutes</label><input id="timerMin" type="number" min="0" max="599" value="15"></div><div><label for="timerSec">Seconds</label><input id="timerSec" type="number" min="0" max="59" value="0"></div></div>
-<div class="clock" id="clock" aria-live="polite">15:00</div>
-<div class="actions"><button id="timerStart">▶ Start</button><button id="timerPause" class="secondary">Ⅱ Pause</button><button id="timerReset" class="secondary">↻ Reset</button></div><p id="timerMessage" class="muted" aria-live="polite"></p>
+<section class="panel">
+ <h2>⏱ Cooking timer</h2>
+ <div class="formgrid">
+  <div><label for="timerMin">Minutes</label><input id="timerMin" type="number" min="0" max="599" value="15"></div>
+  <div><label for="timerSec">Seconds</label><input id="timerSec" type="number" min="0" max="59" value="0"></div>
+ </div>
+ <div id="clock" class="clock">15:00</div>
+ <div class="actions"><button id="timerStart">▶ Start</button><button id="timerPause" class="secondary">Ⅱ Pause</button><button id="timerReset" class="secondary">↻ Reset</button></div>
+ <p id="timerMessage" class="muted" aria-live="polite"></p>
 </section>
 </main>
-<footer>Lynn's Airfryer · Everton-inspired fan theme · Personal cooking companion</footer>
+<footer>Lynn's Airfryer · Everton-inspired fan theme · Personal use</footer>
 
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
-const KEY="lynns-airfryer-v1";
-const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
-const uid=()=>globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2);
+const KEY="lynns-airfryer-v2";
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fresh=()=>({favs:[],custom:[],plans:{},logs:{},shops:[],goals:{},settings:{model:"basket",adjust:0,preheat:"manual"}});
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");return {...fresh(),...s,settings:{...fresh().settings,...(s.settings||{})}}}catch{return fresh()}}
+let state=load();
+
 const baseFoods=[
-["potato","Potato, baked","🥔","Vegetables",200,35,50,93,2.5,21,.1,"vegan vegetarian glutenFree dairyFree"],
+["potato","Potato, baked","🥔","Vegetables",200,25,40,93,2.5,21,.1,"vegan vegetarian glutenFree dairyFree"],
 ["chips","Homemade chips","🍟","Vegetables",200,18,25,160,3,27,5,"vegan vegetarian glutenFree dairyFree"],
-["sweetpotato","Sweet potato","🍠","Vegetables",190,25,40,90,2,21,.2,"vegan vegetarian glutenFree dairyFree"],
+["sweetpotato","Sweet potato","🍠","Vegetables",190,20,30,90,2,21,.2,"vegan vegetarian glutenFree dairyFree"],
 ["broccoli","Broccoli","🥦","Vegetables",180,6,10,35,2.4,7.2,.4,"vegan vegetarian glutenFree dairyFree"],
 ["carrot","Carrots","🥕","Vegetables",190,12,18,41,.9,9.6,.2,"vegan vegetarian glutenFree dairyFree"],
 ["pepper","Bell pepper","🫑","Vegetables",180,8,12,31,1,6,.3,"vegan vegetarian glutenFree dairyFree"],
 ["courgette","Courgette","🥒","Vegetables",190,8,12,17,1.2,3.1,.3,"vegan vegetarian glutenFree dairyFree"],
 ["cauliflower","Cauliflower","🥦","Vegetables",190,10,15,25,1.9,5,.3,"vegan vegetarian glutenFree dairyFree"],
-["brussels","Brussels sprouts","🥬","Vegetables",190,12,18,43,3.4,9,.3,"vegan vegetarian glutenFree dairyFree"],
+["sprouts","Brussels sprouts","🥬","Vegetables",190,12,18,43,3.4,9,.3,"vegan vegetarian glutenFree dairyFree"],
 ["onion","Red onion","🧅","Vegetables",180,8,12,40,1.1,9.3,.1,"vegan vegetarian glutenFree dairyFree"],
 ["mushroom","Mushrooms","🍄","Vegetables",180,7,11,22,3.1,3.3,.3,"vegan vegetarian glutenFree dairyFree"],
 ["asparagus","Asparagus","🌱","Vegetables",190,5,8,20,2.2,3.9,.1,"vegan vegetarian glutenFree dairyFree"],
@@ -224,7 +269,7 @@ const baseFoods=[
 ["salmon","Salmon, cooked","🐟","Fish",180,8,12,208,20,0,13,"glutenFree dairyFree highProtein"],
 ["cod","Cod fillet","🐟","Fish",180,8,12,105,23,0,1,"glutenFree dairyFree highProtein"],
 ["prawns","Prawns","🍤","Fish",180,5,8,99,24,0,.3,"glutenFree dairyFree highProtein"],
-["fishfingers","Fish fingers","🐠","Frozen",200,8,12,230,12,22,10,""],
+["fishfingers","Frozen fish fingers","🐠","Frozen",200,8,12,230,12,22,10,""],
 ["nuggets","Frozen chicken nuggets","🍗","Frozen",200,10,14,260,14,20,13,""],
 ["springrolls","Vegetable spring rolls","🥟","Frozen",200,10,15,210,4,27,9,"vegetarian"],
 ["pizza","Small frozen pizza","🍕","Frozen",180,8,12,260,11,30,11,"vegetarian"],
@@ -240,188 +285,161 @@ const baseFoods=[
 ["edamame","Edamame beans","🫛","Other",180,7,10,121,12,9,5,"vegan vegetarian glutenFree dairyFree highProtein"],
 ["pitta","Pitta bread","🫓","Other",180,3,5,275,9,56,1.2,"vegan vegetarian dairyFree"],
 ["corn","Corn on the cob","🌽","Vegetables",190,10,15,96,3.4,21,1.5,"vegan vegetarian glutenFree dairyFree"]
-].map(a=>({id:a[0],name:a[1],emoji:a[2],cat:a[3],temp:a[4],min:a[5],max:a[6],kcal:a[7],protein:a[8],carbs:a[9],fat:a[10],tags:a[11].split(" ").filter(Boolean),source:"General nutrition estimate; verify against a matching food record or product label.",tip:"Starting cooking guide only; check the centre and adjust for size and appliance.",custom:false}));
+].map(a=>({id:a[0],name:a[1],emoji:a[2],cat:a[3],temp:a[4],min:a[5],max:a[6],kcal:a[7],protein:a[8],carbs:a[9],fat:a[10],tags:a[11].split(" ").filter(Boolean),source:"General estimate; verify with a matching food record or label.",tip:"Starting estimate only. Check doneness and appliance guidance."}));
 
 const recipes=[
-{id:"chips",name:"Crispy homemade chips",emoji:"🍟",minutes:25,kcal:260,ingredients:[["Potatoes","500 g"],["Oil","1 tbsp"]],steps:["Wash and cut potatoes into even chips.","Dry thoroughly and toss with a little oil.","Air fry at about 200°C for 18–25 minutes, shaking regularly.","Check that the centres are tender and the outsides are crisp."],tags:["vegan","vegetarian"]},
-{id:"chicken",name:"Chicken and roasted vegetables",emoji:"🍗",minutes:25,kcal:390,ingredients:[["Chicken breast","300 g"],["Bell pepper","1"],["Courgette","1"],["Olive oil","2 tsp"]],steps:["Cut vegetables into similar-sized pieces.","Season chicken and vegetables; add oil if desired.","Cook in a suitable single layer, turning vegetables as needed.","Check the thickest part of the chicken with a clean food thermometer."],tags:["gluten-free ingredients","dairy-free ingredients"]},
-{id:"salmon",name:"Salmon with potato wedges",emoji:"🐟",minutes:30,kcal:480,ingredients:[["Salmon fillet","2"],["Potatoes","400 g"],["Olive oil","2 tsp"],["Lemon","1"]],steps:["Cut potatoes into even wedges and start cooking them first.","Add salmon according to portion size and appliance instructions.","Check the fish is cooked through and potatoes are tender.","Serve with lemon."],tags:["gluten-free ingredients","dairy-free ingredients"]},
-{id:"tofu",name:"Crispy tofu and vegetables",emoji:"🧊",minutes:20,kcal:300,ingredients:[["Firm tofu","300 g"],["Broccoli","200 g"],["Bell pepper","1"],["Olive oil","2 tsp"]],steps:["Pat tofu dry and cut into cubes.","Cut vegetables evenly.","Toss with a little oil and seasoning.","Air fry in batches if crowded, turning as needed."],tags:["vegan","vegetarian"]},
-{id:"chickpeas",name:"Crispy chickpea snack",emoji:"🫘",minutes:16,kcal:220,ingredients:[["Cooked chickpeas","240 g"],["Olive oil","1 tsp"]],steps:["Drain and dry chickpeas thoroughly.","Mix with oil and your preferred seasonings.","Air fry, shaking regularly, until crisp to your preference.","Allow to cool before storing."],tags:["vegan","vegetarian"]},
-{id:"halloumi",name:"Halloumi and pepper bites",emoji:"🧀",minutes:10,kcal:360,ingredients:[["Halloumi","200 g"],["Bell pepper","1"],["Olive oil","1 tsp"]],steps:["Cut halloumi and pepper into even pieces.","Lightly coat pepper with oil if desired.","Air fry in a single layer, turning as needed.","Check product ingredients and allergens."],tags:["vegetarian"]},
-{id:"breakfast",name:"Breakfast potato and egg",emoji:"🍳",minutes:20,kcal:320,ingredients:[["Potatoes","200 g"],["Eggs","2"],["Oil","1 tsp"]],steps:["Dice potatoes evenly and toss with a little oil.","Cook until nearly tender, shaking halfway.","Add eggs in a suitable oven-safe dish if your appliance permits.","Cook until eggs are set and potatoes are tender."],tags:["vegetarian"]},
-{id:"carrots",name:"Roasted honey carrots",emoji:"🥕",minutes:16,kcal:140,ingredients:[["Carrots","300 g"],["Oil","1 tsp"],["Honey","1 tsp"]],steps:["Cut carrots into even batons.","Mix with oil and honey.","Air fry around 190°C, turning halfway.","Check tenderness and avoid burning the honey."],tags:["vegetarian"]},
-{id:"broccoli",name:"Garlic broccoli",emoji:"🥦",minutes:10,kcal:100,ingredients:[["Broccoli","300 g"],["Olive oil","1 tsp"],["Garlic","1 clove"]],steps:["Cut broccoli into similar-sized florets.","Toss with oil and garlic.","Air fry around 180°C until the edges colour.","Check tenderness and season to taste."],tags:["vegan","vegetarian"]},
-{id:"prawns",name:"Garlic prawns",emoji:"🍤",minutes:8,kcal:180,ingredients:[["Prawns","250 g"],["Olive oil","1 tsp"],["Garlic","1 clove"],["Lemon","1"]],steps:["Use properly thawed prawns if frozen, following pack guidance.","Toss with garlic and a little oil.","Cook in a suitable single layer until opaque and cooked through.","Finish with lemon."],tags:["gluten-free ingredients","dairy-free ingredients"]},
-{id:"apple",name:"Warm cinnamon apple",emoji:"🍎",minutes:10,kcal:120,ingredients:[["Apple","2"],["Cinnamon","1 tsp"],["Honey","1 tsp"]],steps:["Core and slice apples evenly.","Add cinnamon and a little honey if desired.","Air fry around 170°C until soft.","Check often; thin slices cook quickly."],tags:["vegetarian"]},
-{id:"sausage",name:"Sausages and peppers",emoji:"🌭",minutes:18,kcal:430,ingredients:[["Sausages","4"],["Bell pepper","1"],["Red onion","1"]],steps:["Check the sausage packaging for ingredients and allergens.","Slice vegetables evenly.","Cook sausages and vegetables, turning as needed.","Check sausages are thoroughly cooked in the centre."],tags:[]},
-{id:"cauliflower",name:"Spiced cauliflower bites",emoji:"🥦",minutes:15,kcal:160,ingredients:[["Cauliflower","300 g"],["Oil","2 tsp"],["Paprika","1 tsp"]],steps:["Cut cauliflower into evenly sized florets.","Toss with oil and spices.","Air fry around 190°C, shaking halfway.","Cook until tender with browned edges."],tags:["vegan","vegetarian"]}
+{id:"chips",name:"Crispy homemade chips",emoji:"🍟",minutes:25,kcal:260,ingredients:[["Potatoes","500 g"],["Oil","1 tbsp"]],steps:["Wash and cut potatoes evenly.","Dry thoroughly and toss with a little oil.","Air fry around 200°C for 18–25 minutes, shaking regularly.","Check the centres are tender."]},
+{id:"chicken",name:"Chicken and roasted vegetables",emoji:"🍗",minutes:25,kcal:390,ingredients:[["Chicken breast","300 g"],["Bell pepper","1"],["Courgette","1"],["Olive oil","2 tsp"]],steps:["Cut vegetables evenly.","Season chicken and vegetables.","Cook in a suitable single layer, turning as needed.","Check the thickest part of the chicken is safely cooked."]},
+{id:"salmon",name:"Salmon with potato wedges",emoji:"🐟",minutes:30,kcal:480,ingredients:[["Salmon","2 fillets"],["Potatoes","400 g"],["Olive oil","2 tsp"],["Lemon","1"]],steps:["Cut potatoes into even wedges and start them first.","Add salmon according to portion size and appliance instructions.","Check the fish is cooked through and potatoes are tender.","Serve with lemon."]},
+{id:"tofu",name:"Crispy tofu and vegetables",emoji:"🧊",minutes:20,kcal:300,ingredients:[["Firm tofu","300 g"],["Broccoli","200 g"],["Bell pepper","1"],["Olive oil","2 tsp"]],steps:["Pat tofu dry and cube it.","Cut vegetables evenly.","Toss with a little oil and seasoning.","Air fry in batches if crowded."]},
+{id:"chickpeas",name:"Crispy chickpeas",emoji:"🫘",minutes:16,kcal:220,ingredients:[["Cooked chickpeas","240 g"],["Olive oil","1 tsp"]],steps:["Drain and dry chickpeas.","Mix with oil and seasoning.","Air fry, shaking regularly, until crisp.","Allow to cool before storing."]},
+{id:"halloumi",name:"Halloumi and pepper bites",emoji:"🧀",minutes:10,kcal:360,ingredients:[["Halloumi","200 g"],["Bell pepper","1"]],steps:["Cut halloumi and pepper into even pieces.","Place in a suitable single layer.","Air fry, turning as needed.","Check packaging for allergens."]},
+{id:"breakfast",name:"Breakfast potato and egg",emoji:"🍳",minutes:20,kcal:320,ingredients:[["Potatoes","200 g"],["Eggs","2"],["Oil","1 tsp"]],steps:["Dice potatoes evenly and add a little oil.","Cook until nearly tender, shaking halfway.","Add eggs in an appropriate oven-safe dish.","Cook until eggs are set."]},
+{id:"carrots",name:"Roasted carrots",emoji:"🥕",minutes:16,kcal:140,ingredients:[["Carrots","300 g"],["Oil","1 tsp"],["Honey","1 tsp"]],steps:["Cut carrots evenly.","Toss with oil and optional honey.","Air fry around 190°C, turning halfway.","Check tenderness and avoid burning."]},
+{id:"broccoli",name:"Garlic broccoli",emoji:"🥦",minutes:10,kcal:100,ingredients:[["Broccoli","300 g"],["Olive oil","1 tsp"],["Garlic","1 clove"]],steps:["Cut broccoli into even florets.","Toss with oil and garlic.","Air fry around 180°C.","Check tenderness."]},
+{id:"prawns",name:"Garlic prawns",emoji:"🍤",minutes:8,kcal:180,ingredients:[["Prawns","250 g"],["Olive oil","1 tsp"],["Garlic","1 clove"],["Lemon","1"]],steps:["Thaw frozen prawns following packaging instructions.","Toss with garlic and a little oil.","Cook until opaque and cooked through.","Finish with lemon."]},
+{id:"apple",name:"Warm cinnamon apple",emoji:"🍎",minutes:10,kcal:120,ingredients:[["Apple","2"],["Cinnamon","1 tsp"]],steps:["Core and slice apples evenly.","Add cinnamon.","Air fry around 170°C until soft.","Check frequently."]},
+{id:"sausage",name:"Sausages and peppers",emoji:"🌭",minutes:18,kcal:430,ingredients:[["Sausages","4"],["Bell pepper","1"],["Red onion","1"]],steps:["Check sausage packaging and allergens.","Slice vegetables evenly.","Cook, turning as needed.","Check sausages are thoroughly cooked in the centre."]},
+{id:"cauliflower",name:"Spiced cauliflower",emoji:"🥦",minutes:15,kcal:160,ingredients:[["Cauliflower","300 g"],["Oil","2 tsp"],["Paprika","1 tsp"]],steps:["Cut cauliflower into even florets.","Toss with oil and spices.","Air fry around 190°C, shaking halfway.","Cook until tender."]}
 ];
 
-function freshState(){return {favs:[],custom:[],plans:{},logs:{},shops:[],goals:{},settings:{model:"basket",adjust:0,preheat:"manual"}}}
-function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"{}");return {...freshState(),...x,settings:{...freshState().settings,...(x.settings||{})}}}catch{return freshState()}}
-let state=load(),timer=900,timerEnd=0,timerId=null;
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{alert("Could not save data. Export a backup and check browser storage.")}}
-function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{alert("Storage is full or unavailable. Export a backup if possible.")}}
 function allFoods(){return [...baseFoods,...state.custom]}
-function getFood(id){return allFoods().find(f=>f.id===id)}
-function getRecipe(id){return recipes.find(r=>r.id===id)}
-function dayArray(obj,date){if(!Array.isArray(obj[date]))obj[date]=[];return obj[date]}
-function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));({cook:renderFoods,recipes:renderRecipes,planner:renderPlans,shopping:renderShop,tracker:renderTracker,myfoods:renderCustom,settings:()=>{}})[id]?.()}
-document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+function food(id){return allFoods().find(f=>f.id===id)}
+function recipe(id){return recipes.find(r=>r.id===id)}
+function day(obj,date){if(!Array.isArray(obj[date]))obj[date]=[];return obj[date]}
+function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));({cook:renderFoods,recipes:renderRecipes,planner:renderPlans,shopping:renderShop,tracker:renderTracker,myfoods:renderCustom})[id]?.()}
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>showView(b.dataset.view));
 
-function timeText(f){let adj=Number(state.settings.adjust)||0;return `${Math.max(1,Math.round(f.min*(1+adj/100)))}–${Math.max(1,Math.round(f.max*(1+adj/100)))} min`}
 function passes(f,d){if(d==="all")return true;if(d==="favourites")return state.favs.includes(f.id);if(d==="highProtein")return Number(f.protein)>=15;return (f.tags||[]).includes(d)}
+function timeText(f){const a=Number(state.settings.adjust)||0;return `${Math.max(1,Math.round(f.min*(1+a/100)))}–${Math.max(1,Math.round(f.max*(1+a/100)))} min`}
 function renderFoods(){
- 
-["search","category","diet"].forEach(id=>$(id).addEventListener("input",renderFoods));
+ const q=$("search").value.toLowerCase().trim(),cat=$("category").value,d=$("diet").value;
+ const list=allFoods().filter(f=>(f.name+" "+f.cat+" "+(f.tip||"")).toLowerCase().includes(q)&&(cat==="All"||f.cat===cat)&&passes(f,d));
+ $("searchStatus").textContent=list.length+" matching food(s).";
+ $("foodGrid").innerHTML=list.length?list.map(f=>`
+ <article class="card">
+  <div class="emoji">${safe(f.emoji||"🍽️")}</div><h3>${safe(f.name)}</h3>
+  <span class="badge">${safe(f.cat)}</span><span class="badge">${Number(f.kcal)} kcal/100 g</span>
+  ${f.temp!=null&&f.min!=null&&f.max!=null?`<div class="stats"><div class="stat"><small>TEMPERATURE</small><strong>${f.temp}°C</strong></div><div class="stat"><small>STARTING TIME</small><strong>${timeText(f)}</strong></div></div>`:""}
+  <p class="muted">${safe(f.source||"User-entered nutrition; not independently verified.")}</p><p class="muted">${safe(f.tip||"Follow appliance and packaging instructions.")}</p>
+  <div class="actions"><button data-fav="${safe(f.id)}">${state.favs.includes(f.id)?"♥ Favourited":"♡ Favourite"}</button><button class="secondary" data-use="${safe(f.id)}">Log food</button></div>
+  ${f.custom?`<div class="actions"><button class="secondary" data-edit="${safe(f.id)}">Edit</button><button class="danger" data-del="${safe(f.id)}">Delete</button></div>`:""}
+ </article>`).join(""):'<div class="empty">No matching foods. Try another word or change a filter.</div>';
+ $("foodGrid").querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{const id=b.dataset.fav;state.favs=state.favs.includes(id)?state.favs.filter(x=>x!==id):[...state.favs,id];save();renderFoods()});
+ $("foodGrid").querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{populateLog();$("logFood").value=b.dataset.use;showView("tracker")});
+ $("foodGrid").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editFood(b.dataset.edit));
+ $("foodGrid").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>deleteFood(b.dataset.del));
+}
+$("searchBtn").onclick=renderFoods;
+$("search").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();renderFoods()}});
+["category","diet"].forEach(id=>$(id).addEventListener("change",renderFoods));
 
 function renderRecipes(){
  const q=$("recipeSearch").value.toLowerCase().trim();
- const list=recipes.filter(r=>(r.name+" "+r.ingredients.map(i=>i.join(" ")).join(" ")).toLowerCase().includes(q));
- $("recipeGrid").innerHTML=list.map(r=>`<article class="card"><div class="emoji">${r.emoji}</div><h3>${safe(r.name)}</h3><p class="muted">${r.minutes} min · ${r.kcal} estimated kcal per serving</p>${r.tags.map(t=>`<span class="badge">${safe(t)}</span>`).join("")}<div class="actions"><button data-recipe="${r.id}">View recipe</button><button class="secondary" data-recipeshop="${r.id}">Add ingredients</button></div></article>`).join("")||'<div class="empty">No recipes found.</div>';
+ const list=recipes.filter(r=>(r.name+" "+r.ingredients.map(x=>x.join(" ")).join(" ")).toLowerCase().includes(q));
+ $("recipeGrid").innerHTML=list.length?list.map(r=>`<article class="card"><div class="emoji">${r.emoji}</div><h3>${safe(r.name)}</h3><p class="muted">${r.minutes} min · approximately ${r.kcal} kcal per serving</p><div class="actions"><button data-recipe="${r.id}">View recipe</button><button class="secondary" data-rshop="${r.id}">Add ingredients</button></div></article>`).join(""):'<div class="empty">No recipes found.</div>';
  $("recipeGrid").querySelectorAll("[data-recipe]").forEach(b=>b.onclick=()=>showRecipe(b.dataset.recipe));
- $("recipeGrid").querySelectorAll("[data-recipeshop]").forEach(b=>b.onclick=()=>addRecipeShop(b.dataset.recipeshop));
-const list=allFoods().filter(f=>(f.name+" "+f.cat).toLowerCase().includes(q)&&(cat==="All"||f.cat===cat)&&passes(f,d));
- $("foodGrid").innerHTML=list.length?list.map(f=>`<article class="card"><div class="emoji">${safe(f.emoji||"🍽️")}</div><h3>${safe(f.name)}</h3><span class="badge">${safe(f.cat)}</span><span class="badge">${Number(f.kcal)} kcal/100 g</span>
- ${f.temp?`<div class="stats"><div class="stat"><small>TEMPERATURE</small><strong>${f.temp}°C</strong></div><div class="stat"><small>STARTING TIME</small><strong>${timeText(f)}</strong></div></div>`:""}
- <p class="muted">${safe(f.source||"User-entered value; not independently verified.")}</p><p class="muted">${safe(f.tip||"Check appliance and packaging instructions.")}</p>
- <div class="actions"><button data-fav="${safe(f.id)}">${state.favs.includes(f.id)?"♥ Favourite":"♡ Favourite"}</button><button class="secondary" data-use="${safe(f.id)}">Log food</button></div>
- ${f.custom?`<div class="actions"><button class="secondary" data-edit="${safe(f.id)}">Edit</button><button class="danger" data-delete="${safe(f.id)}">Delete</button></div>`:""}</article>`).join(""):'<div class="empty">No matching foods. Change your search or filters.</div>';
- $("foodGrid").querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{const id=b.dataset.fav;state.favs=state.favs.includes(id)?state.favs.filter(x=>x!==id):[...state.favs,id];save();renderFoods()});
- $("foodGrid").querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{populateLogSelect();$("logFood").value=b.dataset.use;showView("tracker")});
- $("foodGrid").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editFood(b.dataset.edit));
- $("foodGrid").querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>deleteFood(b.dataset.delete));
+ $("recipeGrid").querySelectorAll("[data-rshop]").forEach(b=>b.onclick=()=>addRecipeShop(b.dataset.rshop,1));
 }
-
 $("recipeSearch").addEventListener("input",renderRecipes);
 function showRecipe(id){
- const r=getRecipe(id);if(!r)return;
+ const r=recipe(id);if(!r)return;
  $("recipeDetail").hidden=false;
- $("recipeDetail").innerHTML=`<h2>${r.emoji} ${safe(r.name)}</h2><p class="muted">${r.minutes} minutes · about ${r.kcal} kcal per serving (estimate)</p><h3>Ingredients</h3><ul>${r.ingredients.map(i=>`<li>${safe(i[1])} ${safe(i[0])}</li>`).join("")}</ul><h3>Method</h3><ol>${r.steps.map(s=>`<li style="margin:8px 0">${safe(s)}</li>`).join("")}</ol><p class="muted">Nutrition is approximate. Check all ingredients and allergens.</p><div class="actions"><button id="detailShop">＋ Shopping list</button><button class="secondary" id="planThis">＋ Plan this recipe</button></div>`;
- $("detailShop").onclick=()=>addRecipeShop(id);
- $("planThis").onclick=()=>{showView("planner");$("planRecipe").value=id};
+ $("recipeDetail").innerHTML=`<h2>${r.emoji} ${safe(r.name)}</h2><p class="muted">${r.minutes} minutes · approximately ${r.kcal} kcal per serving</p><h3>Ingredients</h3><ul>${r.ingredients.map(x=>`<li>${safe(x[1])} ${safe(x[0])}</li>`).join("")}</ul><h3>Method</h3><ol>${r.steps.map(s=>`<li style="margin:8px 0">${safe(s)}</li>`).join("")}</ol><p class="muted">Nutrition is approximate. Check ingredients and allergens.</p><div class="actions"><button id="detailShop">Shopping list</button><button id="detailPlan" class="secondary">Plan this recipe</button></div>`;
+ $("detailShop").onclick=()=>addRecipeShop(id,1);
+ $("detailPlan").onclick=()=>{showView("planner");$("planRecipe").value=id};
  $("recipeDetail").scrollIntoView({behavior:"smooth",block:"start"});
 }
-function addRecipeShop(id,servingsOverride){
- const r=getRecipe(id);if(!r)return;
- let servings=servingsOverride;
- if(!servings){const ans=prompt("How many servings?", "2");if(ans===null)return;servings=Number(ans)}
- if(!Number.isInteger(servings)||servings<1||servings>40)return alert("Enter 1–40 servings.");
- r.ingredients.forEach(([name,qty])=>state.shops.push({id:uid(),name,qty:`${qty} · for ${servings} serving(s)`,checked:false,source:r.name}));
- save();renderShop();alert("Ingredients added.");
+function addRecipeShop(id,servings){
+ const r=recipe(id);if(!r)return;
+ r.ingredients.forEach(([name,qty])=>state.shops.push({id:uid(),name,qty:qty+" · for "+servings+" serving(s)",checked:false,source:r.name}));
+ save();renderShop();alert("Ingredients added to your shopping list.");
 }
 
 $("planDate").value=today();$("trackDate").value=today();
 $("planRecipe").innerHTML=recipes.map(r=>`<option value="${r.id}">${safe(r.name)}</option>`).join("");
 function renderPlans(){
- const date=$("planDate").value||today(),list=dayArray(state.plans,date);
- $("planHeading").textContent="Planned meals · "+date;
- $("planList").innerHTML=list.length?list.map(p=>`<div class="item"><div><strong>${safe(p.meal)}: ${safe(p.name)}</strong><div class="muted">${p.servings} serving(s) · planned only</div></div><div class="actions"><button class="secondary" data-planshop="${p.id}">Shop</button><button class="danger" data-planremove="${p.id}">Remove</button></div></div>`).join(""):'<div class="empty">Nothing planned for this day.</div>';
- $("planList").querySelectorAll("[data-planremove]").forEach(b=>b.onclick=()=>{state.plans[date]=list.filter(p=>p.id!==b.dataset.planremove);save();renderPlans()});
- $("planList").querySelectorAll("[data-planshop]").forEach(b=>b.onclick=()=>{const p=list.find(x=>x.id===b.dataset.planshop);if(p)addRecipeShop(p.recipeId,p.servings)});
+ const date=$("planDate").value||today(),list=day(state.plans,date);
+ $("planList").innerHTML=list.length?list.map(p=>`<div class="item"><div><strong>${safe(p.meal)}: ${safe(p.name)}</strong><div class="muted">${p.servings} serving(s)</div></div><div class="actions"><button class="secondary" data-pshop="${p.id}">Shop</button><button class="danger" data-pdel="${p.id}">Remove</button></div></div>`).join(""):'<div class="empty">Nothing planned for this date.</div>';
+ $("planList").querySelectorAll("[data-pdel]").forEach(b=>b.onclick=()=>{state.plans[date]=list.filter(p=>p.id!==b.dataset.pdel);save();renderPlans()});
+ $("planList").querySelectorAll("[data-pshop]").forEach(b=>b.onclick=()=>{const p=list.find(x=>x.id===b.dataset.pshop);if(p)addRecipeShop(p.recipeId,p.servings)});
 }
 $("planDate").addEventListener("change",renderPlans);
-$("addPlan").onclick=()=>{const r=getRecipe($("planRecipe").value),servings=Number($("planServings").value),date=$("planDate").value||today();if(!r||!Number.isInteger(servings)||servings<1||servings>20)return alert("Choose a recipe and 1–20 servings.");dayArray(state.plans,date).push({id:uid(),recipeId:r.id,name:r.name,meal:$("planMeal").value,servings});save();renderPlans()};
+$("addPlan").onclick=()=>{const r=recipe($("planRecipe").value),n=Number($("planServings").value),date=$("planDate").value||today();if(!r||!Number.isInteger(n)||n<1||n>20)return alert("Choose a recipe and 1–20 servings.");day(state.plans,date).push({id:uid(),recipeId:r.id,name:r.name,meal:$("planMeal").value,servings:n});save();renderPlans()};
 
 function renderShop(){
- $("shopList").innerHTML=state.shops.length?state.shops.map(s=>`<div class="item"><div style="display:flex;gap:8px;align-items:center;flex:1"><input aria-label="Bought ${safe(s.name)}" type="checkbox" data-shopcheck="${safe(s.id)}" ${s.checked?"checked":""} style="width:auto"><div><strong style="${s.checked?"text-decoration:line-through":""}">${safe(s.name)}</strong><div class="muted">${safe(s.qty||"")}${s.source?" · "+safe(s.source):""}</div></div></div><button class="danger" data-shopdel="${safe(s.id)}">Remove</button></div>`).join(""):'<div class="empty">Your shopping list is empty.</div>';
- $("shopList").querySelectorAll("[data-shopcheck]").forEach(b=>b.onchange=()=>{const s=state.shops.find(x=>x.id===b.dataset.shopcheck);if(s){s.checked=b.checked;save();renderShop()}});
- $("shopList").querySelectorAll("[data-shopdel]").forEach(b=>b.onclick=()=>{state.shops=state.shops.filter(x=>x.id!==b.dataset.shopdel);save();renderShop()});
+ $("shopList").innerHTML=state.shops.length?state.shops.map(s=>`<div class="item"><div style="display:flex;gap:8px;align-items:center;flex:1"><input type="checkbox" aria-label="Bought ${safe(s.name)}" data-check="${safe(s.id)}" ${s.checked?"checked":""}><div><strong style="${s.checked?"text-decoration:line-through":""}">${safe(s.name)}</strong><div class="muted">${safe(s.qty||"")}${s.source?" · "+safe(s.source):""}</div></div></div><button class="danger" data-sdel="${safe(s.id)}">Remove</button></div>`).join(""):'<div class="empty">Your shopping list is empty.</div>';
+ $("shopList").querySelectorAll("[data-check]").forEach(b=>b.onchange=()=>{const s=state.shops.find(x=>x.id===b.dataset.check);if(s)s.checked=b.checked;save();renderShop()});
+ $("shopList").querySelectorAll("[data-sdel]").forEach(b=>b.onclick=()=>{state.shops=state.shops.filter(s=>s.id!==b.dataset.sdel);save();renderShop()});
 }
-$("addShop").onclick=()=>{const name=$("shopItem").value.trim(),qty=$("shopQty").value.trim();if(!name)return alert("Enter an item name.");state.shops.push({id:uid(),name,qty,checked:false,source:""});$("shopItem").value="";$("shopQty").value="";save();renderShop()};
-$("generateShop").onclick=()=>{let n=0;Object.values(state.plans).flat().forEach(p=>{const r=getRecipe(p.recipeId);if(!r)return;r.ingredients.forEach(([name,qty])=>{state.shops.push({id:uid(),name,qty:qty+" · for "+p.servings+" serving(s)",checked:false,source:r.name});n++})});save();renderShop();alert(n?`Added ${n} ingredient entries. Check quantities and duplicates.`:"No planned recipes to add.")};
+$("addShop").onclick=()=>{const name=$("shopItem").value.trim();if(!name)return alert("Enter an item name.");state.shops.push({id:uid(),name,qty:$("shopQty").value.trim(),checked:false,source:""});$("shopItem").value="";$("shopQty").value="";save();renderShop()};
+$("generateShop").onclick=()=>{let count=0;Object.values(state.plans).flat().forEach(p=>{const r=recipe(p.recipeId);if(!r)return;r.ingredients.forEach(([name,qty])=>{state.shops.push({id:uid(),name,qty:qty+" · for "+p.servings+" serving(s)",checked:false,source:r.name});count++})});save();renderShop();alert(count?count+" ingredient entries added. Check quantities and duplicates.":"No planned recipes to add.")};
 $("clearChecked").onclick=()=>{state.shops=state.shops.filter(s=>!s.checked);save();renderShop()};
-$("copyShop").onclick=async()=>{const t=state.shops.map(s=>`${s.checked?"[x]":"[ ]"} ${s.name}${s.qty?" — "+s.qty:""}`).join("\n");try{await navigator.clipboard.writeText(t);alert("List copied.")}catch{prompt("Copy your list:",t)}};
+$("copyShop").onclick=async()=>{const t=state.shops.map(s=>`${s.checked?"[x]":"[ ]"} ${s.name} ${s.qty||""}`).join("\n");try{await navigator.clipboard.writeText(t);alert("List copied.")}catch{prompt("Copy your shopping list:",t)}};
 
-function populateLogSelect(){const old=$("logFood").value;$("logFood").innerHTML=allFoods().map(f=>`<option value="${safe(f.id)}">${safe(f.name)}</option>`).join("");if(getFood(old))$("logFood").value=old}
+function populateLog(){const old=$("logFood").value;$("logFood").innerHTML=allFoods().map(f=>`<option value="${safe(f.id)}">${safe(f.name)}</option>`).join("");if(food(old))$("logFood").value=old}
 function renderTracker(){
- populateLogSelect();const date=$("trackDate").value||today(),logs=dayArray(state.logs,date);
- const totals=logs.reduce((a,e)=>({kcal:a.kcal+e.kcal,protein:a.protein+e.protein,carbs:a.carbs+e.carbs,fat:a.fat+e.fat}),{kcal:0,protein:0,carbs:0,fat:0});
- const goal=Number(state.goals[date]||0);$("dayTotal").textContent=Math.round(totals.kcal)+" kcal";$("dayProtein").textContent=totals.protein.toFixed(1)+" g";$("dayCarbs").textContent=totals.carbs.toFixed(1)+" g";$("dayFat").textContent=totals.fat.toFixed(1)+" g";
- $("meterFill").style.width=goal?Math.min(100,totals.kcal/goal*100)+"%":"0%";$("goalText").textContent=goal?`${Math.round(totals.kcal)} of ${goal} kcal (${Math.round(totals.kcal/goal*100)}%).`:"No optional goal set.";$("goal").value=goal||"";
- $("logList").innerHTML=logs.length?logs.map(e=>`<div class="item"><div><strong>${safe(e.name)}</strong><div class="muted">${safe(e.meal)} · ${e.grams} g · ${e.kcal} kcal</div><div class="small muted">P ${e.protein.toFixed(1)} g · C ${e.carbs.toFixed(1)} g · F ${e.fat.toFixed(1)} g</div></div><button class="danger" data-logdel="${safe(e.id)}">Remove</button></div>`).join(""):'<div class="empty">No food logged for this date.</div>';
- $("logList").querySelectorAll("[data-logdel]").forEach(b=>b.onclick=()=>{state.logs[date]=logs.filter(e=>e.id!==b.dataset.logdel);save();renderTracker()});
+ populateLog();const date=$("trackDate").value||today(),logs=day(state.logs,date);
+ const t=logs.reduce((a,e)=>({kcal:a.kcal+e.kcal,p:a.p+e.protein,c:a.c+e.carbs,f:a.f+e.fat}),{kcal:0,p:0,c:0,f:0});
+ const goal=Number(state.goals[date]||0);
+ $("dayTotal").textContent=Math.round(t.kcal)+" kcal";$("dayProtein").textContent=t.p.toFixed(1)+" g";$("dayCarbs").textContent=t.c.toFixed(1)+" g";$("dayFat").textContent=t.f.toFixed(1)+" g";
+ $("meterFill").style.width=goal?Math.min(100,t.kcal/goal*100)+"%":"0%";
+ $("goalText").textContent=goal?`${Math.round(t.kcal)} of ${goal} kcal (${Math.round(t.kcal/goal*100)}%).`:"No daily goal set.";
+ $("goal").value=goal||"";
+ $("logList").innerHTML=logs.length?logs.map(e=>`<div class="item"><div><strong>${safe(e.name)}</strong><div class="muted">${safe(e.meal)} · ${e.grams} g · ${Math.round(e.kcal)} kcal</div></div><button class="danger" data-ldel="${safe(e.id)}">Remove</button></div>`).join(""):'<div class="empty">No foods logged for this date.</div>';
+ $("logList").querySelectorAll("[data-ldel]").forEach(b=>b.onclick=()=>{state.logs[date]=logs.filter(e=>e.id!==b.dataset.ldel);save();renderTracker()});
 }
 $("trackDate").addEventListener("change",renderTracker);
 $("saveGoal").onclick=()=>{const v=$("goal").value,date=$("trackDate").value||today();if(v!==""&&(!Number.isFinite(Number(v))||Number(v)<1||Number(v)>10000))return alert("Enter 1–10000 or leave blank.");if(v==="")delete state.goals[date];else state.goals[date]=Number(v);save();renderTracker()};
-$("logAdd").onclick=()=>{const f=getFood($("logFood").value),g=Number($("logGrams").value),oil=Number($("logOil").value);if(!f||!Number.isFinite(g)||g<1||g>5000||!Number.isFinite(oil)||oil<0||oil>20)return alert("Check food, portion and oil amounts.");const date=$("trackDate").value||today(),factor=g/100;dayArray(state.logs,date).push({id:uid(),foodId:f.id,name:f.name,grams:g,oil,meal:$("logMeal").value,kcal:Math.round(Number(f.kcal)*factor+oil*40),protein:Number(f.protein||0)*factor,carbs:Number(f.carbs||0)*factor,fat:Number(f.fat||0)*factor});save();renderTracker()};
-$("clearLog").onclick=()=>{const date=$("trackDate").value||today();if(confirm("Clear all diary entries for "+date+"?")){state.logs[date]=[];save();renderTracker()}};
+$("logAdd").onclick=()=>{const f=food($("logFood").value),g=Number($("logGrams").value),oil=Number($("logOil").value);if(!f||!Number.isFinite(g)||g<1||g>5000||!Number.isFinite(oil)||oil<0||oil>20)return alert("Check the food, portion and oil amounts.");const factor=g/100,date=$("trackDate").value||today();day(state.logs,date).push({id:uid(),name:f.name,grams:g,meal:$("logMeal").value,kcal:Number(f.kcal)*factor+oil*40,protein:Number(f.protein||0)*factor,carbs:Number(f.carbs||0)*factor,fat:Number(f.fat||0)*factor});save();renderTracker()};
+$("clearLog").onclick=()=>{const d=$("trackDate").value||today();if(confirm("Clear all diary entries for "+d+"?")){state.logs[d]=[];save();renderTracker()}};
 
 function clearFoodForm(){$("foodForm").reset();$("editId").value="";$("customProtein").value=0;$("customCarbs").value=0;$("customFat").value=0;$("saveFood").textContent="Save food"}
 $("foodForm").onsubmit=e=>{
  e.preventDefault();
- const name=$("customName").value.trim(),kcal=Number($("customKcal").value);
- const protein=Number($("customProtein").value||0),carbs=Number($("customCarbs").value||0),fat=Number($("customFat").value||0);
- if(!name||!Number.isFinite(kcal)||kcal<0||kcal>1000||[protein,carbs,fat].some(n=>!Number.isFinite(n)||n<0||n>100))return alert("Check the name and nutrition values.");
- const id=$("editId").value||("custom-"+uid()),old=state.custom.find(f=>f.id===id);
+ const name=$("customName").value.trim(),kcal=Number($("customKcal").value),protein=Number($("customProtein").value||0),carbs=Number($("customCarbs").value||0),fat=Number($("customFat").value||0);
+ if(!name||![kcal,protein,carbs,fat].every(Number.isFinite)||kcal<0||kcal>1000||[protein,carbs,fat].some(n=>n<0||n>100))return alert("Check nutrition values.");
+ const id=$("editId").value||"custom-"+uid(),old=state.custom.find(f=>f.id===id);
  const temp=$("customTemp").value===""?null:Number($("customTemp").value),min=$("customMin").value===""?null:Number($("customMin").value),max=$("customMax").value===""?null:Number($("customMax").value);
- if((temp!==null&&(!Number.isFinite(temp)||temp<60||temp>240))||(min!==null&&(!Number.isFinite(min)||min<1||min>180))||(max!==null&&(!Number.isFinite(max)||max<1||max>240))||(min!==null&&max!==null&&max<min))return alert("Check temperature and cooking-time ranges.");
- const f={id,name,emoji:old?.emoji||"🍽️",cat:$("customCat").value,kcal,protein,carbs,fat,temp,min,max,tags:old?.tags||[],source:$("customSource").value.trim()||"User-entered; source not supplied",tip:$("customTip").value.trim()||"Follow packaging and appliance guidance.",custom:true};
+ if((temp!==null&&(temp<60||temp>240))||(min!==null&&(min<1||min>180))||(max!==null&&(max<1||max>240))||(min!==null&&max!==null&&max<min))return alert("Check cooking times and temperature.");
+ const f={id,name,emoji:old?.emoji||"🍽️",cat:$("customCat").value,kcal,protein,carbs,fat,temp,min,max,tags:old?.tags||[],source:$("customSource").value.trim()||"User-entered; not verified",tip:$("customTip").value.trim()||"Follow appliance and packaging instructions.",custom:true};
  if(old)state.custom=state.custom.map(x=>x.id===id?f:x);else state.custom.push(f);
- save();clearFoodForm();renderAll();renderCustom();alert(old?"Food updated.":"Food saved.");
+ save();clearFoodForm();renderAll();alert(old?"Food updated.":"Food saved.");
 };
 $("cancelFood").onclick=clearFoodForm;
 function editFood(id){const f=state.custom.find(x=>x.id===id);if(!f)return;showView("myfoods");$("editId").value=f.id;$("customName").value=f.name;$("customCat").value=f.cat;$("customKcal").value=f.kcal;$("customProtein").value=f.protein||0;$("customCarbs").value=f.carbs||0;$("customFat").value=f.fat||0;$("customTemp").value=f.temp??"";$("customMin").value=f.min??"";$("customMax").value=f.max??"";$("customSource").value=f.source||"";$("customTip").value=f.tip||"";$("saveFood").textContent="Update food";$("foodForm").scrollIntoView({behavior:"smooth"})}
-function deleteFood(id){const f=state.custom.find(x=>x.id===id);if(!f||!confirm(`Delete ${f.name}? Existing diary entries remain as historical records.`))return;state.custom=state.custom.filter(x=>x.id!==id);save();renderAll()}
-function renderCustom(){$("customList").innerHTML=state.custom.length?state.custom.map(f=>`<div class="item"><div><strong>${safe(f.name)}</strong><div class="muted">${f.kcal} kcal · P ${f.protein} g · C ${f.carbs} g · F ${f.fat} g per 100 g</div><div class="muted">${safe(f.source)}</div></div><div class="actions"><button class="secondary" data-edit="${safe(f.id)}">Edit</button><button class="danger" data-delete="${safe(f.id)}">Delete</button></div></div>`).join(""):'<div class="empty">No custom foods yet. Use the form above to add your first one.</div>';$("customList").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editFood(b.dataset.edit));$("customList").querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>deleteFood(b.dataset.delete))}
+function deleteFood(id){const f=state.custom.find(x=>x.id===id);if(!f||!confirm("Delete "+f.name+"?"))return;state.custom=state.custom.filter(x=>x.id!==id);save();renderAll()}
+function renderCustom(){$("customList").innerHTML=state.custom.length?state.custom.map(f=>`<div class="item"><div><strong>${safe(f.name)}</strong><div class="muted">${f.kcal} kcal · protein ${f.protein} g · carbs ${f.carbs} g · fat ${f.fat} g per 100 g</div><div class="muted">${safe(f.source)}</div></div><div class="actions"><button class="secondary" data-edit="${safe(f.id)}">Edit</button><button class="danger" data-del="${safe(f.id)}">Delete</button></div></div>`).join(""):'<div class="empty">No custom foods yet.</div>';$("customList").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editFood(b.dataset.edit));$("customList").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>deleteFood(b.dataset.del))}
 
-function parseCSV(text){
- const rows=[];let row=[],cell="",quoted=false;
- for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"')quoted=!quoted;else if(c===","&&!quoted){row.push(cell);cell=""}else if((c==="\n"||c==="\r")&&!quoted){if(c==="\r"&&n==="\n")i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell=""}else cell+=c}
- if(cell.length||row.length){row.push(cell);rows.push(row)}return rows
-}
+function parseCSV(text){const rows=[];let row=[],cell="",quoted=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"')quoted=!quoted;else if(c===","&&!quoted){row.push(cell);cell=""}else if((c==="\n"||c==="\r")&&!quoted){if(c==="\r"&&n==="\n")i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell=""}else cell+=c}if(cell.length||row.length){row.push(cell);rows.push(row)}return rows}
 $("importCsv").onclick=async()=>{
  const file=$("csvFile").files[0];if(!file)return alert("Choose a CSV file.");
- try{
-  const rows=parseCSV(await file.text());if(!rows.length)throw Error("Empty file.");
-  const headers=rows.shift().map(x=>x.trim().toLowerCase()),idx=k=>headers.indexOf(k);
-  for(const k of ["name","kcal"])if(idx(k)<0)throw Error("Missing required column: "+k);
-  let count=0;
-  rows.forEach((r,i)=>{const name=(r[idx("name")]||"").trim(),kcal=Number(r[idx("kcal")]);if(!name||!Number.isFinite(kcal)||kcal<0||kcal>1000)return;
-   const num=k=>idx(k)<0?0:(Number(r[idx(k)])||0),id="csv-"+uid();
-   state.custom.push({id,name,emoji:"📊",cat:"Other",kcal,protein:num("protein"),carbs:num("carbs"),fat:num("fat"),temp:null,min:null,max:null,tags:[],source:(idx("source")>=0&&r[idx("source")].trim())||"Imported CSV; not independently verified",tip:"Confirm food identity, units and raw/cooked state.",custom:true});count++;
-  });
-  if(!count)throw Error("No valid food rows found.");
-  save();renderAll();renderCustom();$("importMessage").textContent=`Imported ${count} foods. Verify the source and units before relying on the figures.`;
+ try{const rows=parseCSV(await file.text());if(!rows.length)throw Error("Empty file.");const h=rows.shift().map(x=>x.trim().toLowerCase()),idx=k=>h.indexOf(k);if(idx("name")<0||idx("kcal")<0)throw Error("Required headers: name,kcal");
+ let count=0;
+ rows.forEach(r=>{const name=(r[idx("name")]||"").trim(),kcal=Number(r[idx("kcal")]);if(!name||!Number.isFinite(kcal)||kcal<0||kcal>1000)return;const num=k=>idx(k)<0?0:Number(r[idx(k)])||0;state.custom.push({id:"csv-"+uid(),name,emoji:"📊",cat:"Other",kcal,protein:num("protein"),carbs:num("carbs"),fat:num("fat"),temp:null,min:null,max:null,tags:[],source:idx("source")>=0&&r[idx("source")].trim()||"Imported CSV; not verified",tip:"Check source, units and raw/cooked state.",custom:true});count++});
+ if(!count)throw Error("No valid food rows found.");save();renderAll();$("importMessage").textContent=count+" foods imported. Check each source and unit.";
  }catch(e){$("importMessage").textContent="Import failed: "+e.message}
 };
 
-const modelDefaults={basket:0,oven:10,dual:0,compact:-5,manual:0};
 function loadSettings(){$("model").value=state.settings.model||"basket";$("adjust").value=state.settings.adjust??0;$("preheat").value=state.settings.preheat||"manual"}
-$("model").onchange=()=>{if($("model").value!=="manual")$("adjust").value=modelDefaults[$("model").value]??0};
-$("saveSettings").onclick=()=>{const adjust=Number($("adjust").value);if(!Number.isFinite(adjust)||adjust< -30||adjust>50)return alert("Use -30 to +50.");state.settings={model:$("model").value,adjust,preheat:$("preheat").value};save();$("settingsMessage").textContent="Saved. Adjustments change suggestions only; always check your appliance manual.";renderFoods()};
-
-$("exportData").onclick=()=>{
- const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="lynns-airfryer-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-};
+$("saveSettings").onclick=()=>{const a=Number($("adjust").value);if(!Number.isFinite(a)||a< -30||a>50)return alert("Use -30 to +50.");state.settings={model:$("model").value,adjust:a,preheat:$("preheat").value};save();$("settingsMessage").textContent="Preferences saved. Changes affect suggestions only.";renderFoods()};
+$("exportData").onclick=()=>{const blob=new Blob([JSON.stringify({version:2,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lynns-airfryer-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 $("importBackup").onclick=()=>$("backupFile").click();
-$("backupFile").onchange=async()=>{
- const file=$("backupFile").files[0];if(!file)return;
- try{const x=JSON.parse(await file.text()),s=x.state||x;if(!s||!Array.isArray(s.custom)||!Array.isArray(s.favs)||!s.logs||!s.plans||!Array.isArray(s.shops))throw Error("This does not look like a compatible backup.");if(!confirm("Restore this backup? Your current app data will be replaced."))return;state={...freshState(),...s,settings:{...freshState().settings,...(s.settings||{})}};save();renderAll();loadSettings();$("backupMessage").textContent="Backup restored."}catch(e){$("backupMessage").textContent="Restore failed: "+e.message}
-};
-$("resetData").onclick=()=>{if(confirm("Delete all your app data? Export a backup first if needed.")){state=freshState();save();clearFoodForm();renderAll();loadSettings();$("backupMessage").textContent="App data reset."}};
+$("backupFile").onchange=async()=>{const file=$("backupFile").files[0];if(!file)return;try{const x=JSON.parse(await file.text()),s=x.state||x;if(!s||!Array.isArray(s.custom)||!Array.isArray(s.favs)||!s.logs||!s.plans||!Array.isArray(s.shops))throw Error("Not a compatible backup.");if(!confirm("Replace current app data with this backup?"))return;state={...fresh(),...s,settings:{...fresh().settings,...(s.settings||{})}};save();renderAll();loadSettings();$("backupMessage").textContent="Backup restored."}catch(e){$("backupMessage").textContent="Restore failed: "+e.message}};
+$("resetData").onclick=()=>{if(confirm("Delete all app data? Export a backup first if needed.")){state=fresh();save();clearFoodForm();renderAll();loadSettings();$("backupMessage").textContent="Data reset."}};
 
-let timer=900,timerEnd=0,timerId=null;
-function showClock(){$("clock").textContent=String(Math.floor(timer/60)).padStart(2,"0")+":"+String(timer%60).padStart(2,"0")}
-function stopTimer(){if(timerId)clearInterval(timerId);timerId=null}
-$("timerStart").onclick=()=>{
- if(timerId)return;
- if(timer<=0){const m=Number($("timerMin").value),s=Number($("timerSec").value);if(!Number.isInteger(m)||!Number.isInteger(s)||m<0||m>599||s<0||s>59||m*60+s<=0)return alert("Enter a valid time greater than zero.");timer=m*60+s}
- timerEnd=Date.now()+timer*1000;$("timerMessage").textContent="Timer running";
- timerId=setInterval(()=>{timer=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));showClock();if(timer===0){stopTimer();$("timerMessage").textContent="Timer finished — check your food.";alert("Timer finished. Check food is safely cooked.")}},250);
-};
-$("timerPause").onclick=()=>{if(timerId){timer=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));stopTimer();showClock();$("timerMessage").textContent="Timer paused"}};
-$("timerReset").onclick=()=>{stopTimer();const m=Number($("timerMin").value),s=Number($("timerSec").value);timer=Number.isInteger(m)&&Number.isInteger(s)&&m>=0&&m<=599&&s>=0&&s<=59?m*60+s:0;showClock();$("timerMessage").textContent=""};
-["timerMin","timerSec"].forEach(id=>$(id).onchange=()=>{if(!timerId){const m=Number($("timerMin").value),s=Number($("timerSec").value);if(Number.isInteger(m)&&Number.isInteger(s)&&m>=0&&m<=599&&s>=0&&s<=59){timer=m*60+s;showClock()}}});
+let timerSeconds=900,timerEnd=0,timerInterval=null;
+function showClock(){$("clock").textContent=String(Math.floor(timerSeconds/60)).padStart(2,"0")+":"+String(timerSeconds%60).padStart(2,"0")}
+function stopTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=null}
+$("timerStart").onclick=()=>{if(timerInterval)return;if(timerSeconds<=0){const m=Number($("timerMin").value),s=Number($("timerSec").value);if(!Number.isInteger(m)||!Number.isInteger(s)||m<0||m>599||s<0||s>59||m*60+s<=0)return alert("Enter a valid time.");timerSeconds=m*60+s}timerEnd=Date.now()+timerSeconds*1000;$("timerMessage").textContent="Timer running.";timerInterval=setInterval(()=>{timerSeconds=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));showClock();if(timerSeconds===0){stopTimer();$("timerMessage").textContent="Timer finished — check your food.";alert("Timer finished. Check that your food is safely cooked.")}},250)};
+$("timerPause").onclick=()=>{if(timerInterval){timerSeconds=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));stopTimer();showClock();$("timerMessage").textContent="Timer paused."}};
+$("timerReset").onclick=()=>{stopTimer();const m=Number($("timerMin").value),s=Number($("timerSec").value);timerSeconds=Number.isInteger(m)&&Number.isInteger(s)&&m>=0&&m<=599&&s>=0&&s<=59?m*60+s:0;showClock();$("timerMessage").textContent=""};
+["timerMin","timerSec"].forEach(id=>$(id).onchange=()=>{if(!timerInterval){const m=Number($("timerMin").value),s=Number($("timerSec").value);if(Number.isInteger(m)&&Number.isInteger(s)&&m>=0&&m<=599&&s>=0&&s<=59){timerSeconds=m*60+s;showClock()}}});
 
 function renderAll(){renderFoods();renderRecipes();renderPlans();renderShop();renderTracker();renderCustom()}
 loadSettings();renderAll();showClock();
-if("serviceWorker"in navigator&&location.protocol==="https:"){
- window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(err=>console.warn("Service worker registration failed",err)));
-}
+if("serviceWorker"in navigator&&location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e)))}
 </script>
 </body>
 </html>
- 
