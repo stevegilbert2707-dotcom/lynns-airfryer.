@@ -1,0 +1,21 @@
+
+{
+  "id": "./",
+  "name": "Lynn's Airfryer",
+  "short_name": "Lynn's Airfryer",
+  "description": "Your personal Everton-themed air fryer cooking companion",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f5ee",
+  "theme_color": "#003399",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
