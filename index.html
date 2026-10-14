@@ -273,8 +273,16 @@ document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",(
 function timeText(f){let adj=Number(state.settings.adjust)||0;return `${Math.max(1,Math.round(f.min*(1+adj/100)))}–${Math.max(1,Math.round(f.max*(1+adj/100)))} min`}
 function passes(f,d){if(d==="all")return true;if(d==="favourites")return state.favs.includes(f.id);if(d==="highProtein")return Number(f.protein)>=15;return (f.tags||[]).includes(d)}
 function renderFoods(){
- const q=$("search").value.toLowerCase().trim(),cat=$("category").value,d=$("diet").value;
- const list=allFoods().filter(f=>(f.name+" "+f.cat).toLowerCase().includes(q)&&(cat==="All"||f.cat===cat)&&passes(f,d));
+ 
+["search","category","diet"].forEach(id=>$(id).addEventListener("input",renderFoods));
+
+function renderRecipes(){
+ const q=$("recipeSearch").value.toLowerCase().trim();
+ const list=recipes.filter(r=>(r.name+" "+r.ingredients.map(i=>i.join(" ")).join(" ")).toLowerCase().includes(q));
+ $("recipeGrid").innerHTML=list.map(r=>`<article class="card"><div class="emoji">${r.emoji}</div><h3>${safe(r.name)}</h3><p class="muted">${r.minutes} min · ${r.kcal} estimated kcal per serving</p>${r.tags.map(t=>`<span class="badge">${safe(t)}</span>`).join("")}<div class="actions"><button data-recipe="${r.id}">View recipe</button><button class="secondary" data-recipeshop="${r.id}">Add ingredients</button></div></article>`).join("")||'<div class="empty">No recipes found.</div>';
+ $("recipeGrid").querySelectorAll("[data-recipe]").forEach(b=>b.onclick=()=>showRecipe(b.dataset.recipe));
+ $("recipeGrid").querySelectorAll("[data-recipeshop]").forEach(b=>b.onclick=()=>addRecipeShop(b.dataset.recipeshop));
+const list=allFoods().filter(f=>(f.name+" "+f.cat).toLowerCase().includes(q)&&(cat==="All"||f.cat===cat)&&passes(f,d));
  $("foodGrid").innerHTML=list.length?list.map(f=>`<article class="card"><div class="emoji">${safe(f.emoji||"🍽️")}</div><h3>${safe(f.name)}</h3><span class="badge">${safe(f.cat)}</span><span class="badge">${Number(f.kcal)} kcal/100 g</span>
  ${f.temp?`<div class="stats"><div class="stat"><small>TEMPERATURE</small><strong>${f.temp}°C</strong></div><div class="stat"><small>STARTING TIME</small><strong>${timeText(f)}</strong></div></div>`:""}
  <p class="muted">${safe(f.source||"User-entered value; not independently verified.")}</p><p class="muted">${safe(f.tip||"Check appliance and packaging instructions.")}</p>
@@ -285,15 +293,7 @@ function renderFoods(){
  $("foodGrid").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editFood(b.dataset.edit));
  $("foodGrid").querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>deleteFood(b.dataset.delete));
 }
-["search","category","diet"].forEach(id=>$(id).addEventListener("input",renderFoods));
 
-function renderRecipes(){
- const q=$("recipeSearch").value.toLowerCase().trim();
- const list=recipes.filter(r=>(r.name+" "+r.ingredients.map(i=>i.join(" ")).join(" ")).toLowerCase().includes(q));
- $("recipeGrid").innerHTML=list.map(r=>`<article class="card"><div class="emoji">${r.emoji}</div><h3>${safe(r.name)}</h3><p class="muted">${r.minutes} min · ${r.kcal} estimated kcal per serving</p>${r.tags.map(t=>`<span class="badge">${safe(t)}</span>`).join("")}<div class="actions"><button data-recipe="${r.id}">View recipe</button><button class="secondary" data-recipeshop="${r.id}">Add ingredients</button></div></article>`).join("")||'<div class="empty">No recipes found.</div>';
- $("recipeGrid").querySelectorAll("[data-recipe]").forEach(b=>b.onclick=()=>showRecipe(b.dataset.recipe));
- $("recipeGrid").querySelectorAll("[data-recipeshop]").forEach(b=>b.onclick=()=>addRecipeShop(b.dataset.recipeshop));
-}
 $("recipeSearch").addEventListener("input",renderRecipes);
 function showRecipe(id){
  const r=getRecipe(id);if(!r)return;
